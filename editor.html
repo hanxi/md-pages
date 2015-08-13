@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/github-gist.min.css">
+    <link rel="stylesheet" href="css/codemirror.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/codemirror.js"></script>
+    <script src="js/overlay.js"></script>
+    <script src="js/markdown.js"></script>
+    <script src="js/gfm.js"></script>
+    <script src="js/meta.js"></script>
+
+    <script src="js/marked.js"></script>
+    <script src="js/highlight.pack.js"></script>
+
+    <script src="js/util.js"></script>
+    <script src="js/editor.js"></script>
+    <script src="js/defaultmd.js"></script>
+</head>
+
+<body>
+    <div id="top-bar">
+        <span>文章标题:</span>
+        <input id="file-name"></input>
+        <button id="publish" onclick="publish();">发布</button>
+    </div>
+    <div id="editor"><form><textarea id="code"></textarea></form></div>
+    <div id="preview"></div>
+</body>
+
+</html>
+
