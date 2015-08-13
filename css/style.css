@@ -43,6 +43,7 @@ body {
   width: auto;
   height: auto;
   background: whitesmoke;
+  padding-bottom: 50px;
 }
 
 .CodeMirror-scroll {
@@ -187,7 +188,7 @@ td {
 }
 
 /* Optimization for pre and code tag */
-pre, code { 
+pre, code {
     font-family: Consolas, "DejaVu Sans Mono", "Lucida Console", Monaco, Andale Mono, "MS Gothic", monospace;
     font-size: 13px;
     border-radius: 3px;
@@ -203,7 +204,7 @@ code {
     padding: 1px 3px;
 }
 
-pre { 
+pre {
     border: 1px solid #eee;
     padding: 8px 12px;
     white-space: pre;

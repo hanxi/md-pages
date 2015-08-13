@@ -20,9 +20,12 @@ onload = function()
 
 scrollPreview = function()
 {
-    var sinfo = editor.getScrollInfo();
     var preview = document.getElementById("preview");
-    preview.scrollTop = (sinfo.top/sinfo.clientHeight)*preview.scrollHeight;
+    var sinfo = editor.getScrollInfo();
+    var code = document.getElementById("editor");
+    var preview = document.getElementById("preview");
+    var per = sinfo.top/(sinfo.height-sinfo.clientHeight);
+    preview.scrollTop = (preview.scrollHeight-preview.clientHeight)*per;
 }
 
 update = function()
@@ -31,7 +34,7 @@ update = function()
     render(mdString);
 }
 
-render = function(mdString) 
+render = function(mdString)
 {
     var html = marked(mdString);
     var preview = document.getElementById("preview");
@@ -72,4 +75,3 @@ publish = function()
     var url = "http://localhost:8000/upload?name=md/"+title+"."+fileName;
     postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
 }
-
