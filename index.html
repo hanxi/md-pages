@@ -55,6 +55,7 @@
         var p = loadPageVar("p");
         var filename = p;
         var pagetitle = filename.replace(/^(\d+\.){7}/,"");
+        pagetitle = pagetitle.replace(/\.md$/,"");
         console.log(filename,pagetitle);
         if (filename && pagetitle) {
             hideElement("home");

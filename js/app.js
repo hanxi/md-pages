@@ -65,7 +65,7 @@ function gotoPage(filename, pagetitle)
     setTitle(config.blog_name);
     setFooter();
     getText(getMdUrl()+filename, function(data) {
-        setTitle(config.blog_name + " - " + title);
+        setTitle(config.blog_name + " - " + pagetitle);
         var title = document.getElementById("title");
         var txt = document.createTextNode(pagetitle);
         title.appendChild(txt);
