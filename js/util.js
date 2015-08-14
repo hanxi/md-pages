@@ -113,6 +113,23 @@ getCurTimeStr = function()
     return timeStr;
 }
 
+getTimeFromStr = function(str)
+{
+    var arr = str.split(".");
+    arr.forEach(function(value, index, ar){
+        ar[index] = parseInt(value);
+    });
+    var date = new Date();
+    date.setFullYear(arr[0]);
+    date.setMonth(arr[1]-1);
+    date.setDate(arr[2])
+    date.setHours(arr[3])
+    date.setMinutes(arr[4])
+    date.setSeconds(arr[5])
+    date.setMilliseconds(arr[6]);
+    return date;
+}
+
 function getMdUrl()
 {
     return config.file_server+"/md/";

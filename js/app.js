@@ -30,8 +30,14 @@ function gotoHome()
                     }
                 }
             }
+            var tmparray = [];
             for (filenamepre in tmpdict) {
-                var filename = tmpdict[filenamepre].filename;
+                tmpdict[filenamepre].ctime = getTimeFromStr(filenamepre);
+                tmparray.push(tmpdict[filenamepre]);
+            }
+            tmparray.sort(function(a,b){return a.ctime<b.ctime;});
+            for (var i=0; i<tmparray.length; i++) {
+                var filename = tmparray[i].filename;
                 if (filename.charAt(filename.length-1)!="/") {
                     var editbtn = document.createElement("button");
                     editbtn.onclick = editMd;
