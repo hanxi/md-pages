@@ -42,6 +42,10 @@ $ python file-server.py 8001
 - [ ] 主页文档分页加载
 - [ ] 预览滚动条带动编辑器滚动条
 
+## MORE
+
+<http://blog.hanxi.info/?p=10>
+
 [marked]:https://github.com/chjj/marked
 [codemirror]:https://codemirror.net/
 [GFM]:https://help.github.com/articles/github-flavored-markdown/
