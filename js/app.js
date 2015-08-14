@@ -96,7 +96,7 @@ render = function(mdString)
 
 newPage = function()
 {
-    if (!localStorage.newPage) {
+    if (!localStorage.newPage || localStorage.newPage==="undefined") {
         localStorage.newPage = getCurTimeStr();
     }
     window.location.href = "/editor.html?name="+localStorage.newPage+"&type=new";

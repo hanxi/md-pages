@@ -22,6 +22,12 @@ onload = function()
                 editor.setValue(data);
                 var newUrl = window.location.href.replace(/&filename=.*$/,"");
                 updateUrl(newUrl);
+
+                var pagetitle = filename.replace(/^(\d+\.){7}/,"");
+                pagetitle = pagetitle.replace(/\.md$/,"");
+                var fileNameView = document.getElementById("file-name");
+                fileNameView.value = pagetitle;
+
                 update();
             });
         } else {
@@ -34,6 +40,9 @@ onload = function()
     }
     editor.on('change', update);
     editor.on("scroll", scrollPreview);
+
+    fileNameView = document.getElementById("file-name");
+    fileNameView.onblur = updateTitle;
 }
 
 function updateUrl(newUrl)
@@ -50,6 +59,11 @@ function loadCache(name)
         editor.setValue(localStorage[name]);
     } else {
         editor.setValue(defaultmd);
+    }
+
+    if (localStorage[name+".title"]) {
+        var fileNameView = document.getElementById("file-name");
+        fileNameView.value = localStorage[name+".title"];
     }
 }
 
@@ -69,6 +83,15 @@ update = function()
     render(mdString);
     var name = loadPageVar("name");
     localStorage[name] = mdString;
+    updateTitle();
+}
+
+updateTitle = function()
+{
+    var name = loadPageVar("name");
+    var fileNameView = document.getElementById("file-name");
+    var pagetitle = fileNameView.value;
+    localStorage[name+".title"] = pagetitle; 
 }
 
 render = function(mdString)
@@ -76,42 +99,15 @@ render = function(mdString)
     var html = marked(mdString);
     var preview = document.getElementById("preview");
     preview.innerHTML = html;
-    updateTitle(mdString);
-}
-
-var heading= /((?:^|\n) *#{1}) +([^\n]+?) *#* *(?:\n+|$)/;
-var lheading = /([^\n]+)\n *={2,} *(?:\n+|$)/;
-updateTitle = function(mdString)
-{
-    var matchTitle = mdString.match(heading);
-    var title = null;
-    if (matchTitle) {
-        title = matchTitle[2];
-    } else {
-        matchTitle = mdString.match(lheading);
-        if (matchTitle) {
-            title = matchTitle[1];
-        }
-    }
-
-    if (title) {
-        var fileNameView = document.getElementById("file-name");
-        fileNameView.value = title;
-    }
 }
 
 publish = function()
 {
     var mdString = editor.getValue();
-    var fileNameView = document.getElementById("file-name");
-    var title = fileNameView.value;
-    title = title.trim();
-    fileNameView.value = title;
-    mdString = mdString.replace(heading,"$1 "+title+"\n\n");
-    editor.setValue(mdString);
-
     var name = loadPageVar("name");
-    var url = config.file_server+"/upload?name=md/"+name+"."+title+".md";
+    var pagetitle = localStorage[name+".title"]; 
+
+    var url = config.file_server+"/upload?name=md/"+name+"."+pagetitle+".md";
     postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
-    localStorage.newPage = null;
+    localStorage.newPage = undefined;
 }
