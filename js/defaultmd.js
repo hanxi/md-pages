@@ -3,12 +3,12 @@ function heredoc(fn) {
 }
 
 defaultmd=heredoc(function(){/*
-## GitHub Flavored Markdown
+# GitHub Flavored Markdown
 
 
 Everything from markdown plus GFM features:
 
-# URL autolinking
+## URL autolinking
 
 Underscores_are_allowed_between_words.
 

@@ -47,8 +47,7 @@ getData = function(url, callback, parse)
 
 postBinary = function(data, url, callback) {
     var xhr = createHTTPRequestObject();
-    var method = "post";
-    xhr.open(method, url, true);
+    xhr.open("post", url, true);
     xhr.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
     xhr.onreadystatechange = function() {
         if (xhr.readyState==4 && xhr.status==200)
@@ -96,7 +95,26 @@ showElement = function(id)
     node.style.display="";
 }
 
-loadPageVar = function (sVar) {
+loadPageVar = function(sVar)
+{
     return unescape(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + escape(sVar).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+}
+
+getCurTimeStr = function()
+{
+    var date = new Date();
+    var timeStr = "" + date.getFullYear()
+        + "." + (date.getMonth()+1)
+        + "." + date.getDate()
+        + "." + date.getHours()
+        + "." + date.getMinutes()
+        + "." + date.getSeconds()
+        + "." + date.getMilliseconds();
+    return timeStr;
+}
+
+function getMdUrl()
+{
+    return config.file_server+"/md/";
 }
 

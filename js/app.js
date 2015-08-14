@@ -17,27 +17,43 @@ function gotoHome()
     var link = {};
     var postlist = document.getElementById("post_list");
     function loadPage(page) {
-        var more = document.getElementById("more");
-        if (more) {
-            removeChildById(postlist, "more");
-            var newMore = document.createElement("img");
-            newMore.id = "more";
-            newMore.src = "littlewait.gif";
-            postlist.appendChild(newMore);
-        }
-        getJSON(config.md_url, function(data) {
+        getJSON(getMdUrl(), function(data) {
             removeChildById(document.getElementById("index"), "wait");
-            removeChildById(postlist, "more");
+            var tmpdict = {}
             for (var i=0; i<data.length; i++) {
-                var posttitle = document.createElement("li");
-                posttitle.className = "pagelist";
-                postlist.appendChild(posttitle);
-                var href = document.createElement("a");
-                var pagetitle = data[i].replace(/\.\w+\d+\.md/,"");
-                href.href = "?p="+data[i]+"&t="+(new Date().getTime());
-                var txt = document.createTextNode(pagetitle);
-                href.appendChild(txt);
-                posttitle.appendChild(href);
+                var filename = data[i].filename;
+                var mtime = data[i].mtime;
+                var filenamepre = filename.match(/^(\d+\.){6}\d/);
+                if (filenamepre) {
+                    if (!tmpdict[filenamepre] || tmpdict[filenamepre].mtime>mtime) {
+                        tmpdict[filenamepre] = {"mtime":mtime,"filename":filename};
+                    }
+                }
+            }
+            for (filenamepre in tmpdict) {
+                var filename = tmpdict[filenamepre].filename;
+                if (filename.charAt(filename.length-1)!="/") {
+                    var editbtn = document.createElement("button");
+                    editbtn.onclick = editMd;
+                    editbtn.name = filename;
+                    var span = document.createElement("span");
+                    span.className = "octicon octicon-pencil";
+                    editbtn.appendChild(span);
+                    span.name = filename;
+
+                    var posttitle = document.createElement("li");
+                    posttitle.className = "pagelist";
+                    postlist.appendChild(posttitle);
+                    var href = document.createElement("a");
+                    var pagetitle = filename.replace(/^(\d+\.){7}/,"");
+                    pagetitle = pagetitle.replace(/\.md$/,"");
+                    href.href = "?p="+filename+"&t="+(new Date().getTime());
+                    var txt = document.createTextNode(pagetitle);
+                    href.appendChild(txt);
+
+                    posttitle.appendChild(editbtn);
+                    posttitle.appendChild(href);
+                }
             }
         });
     }
@@ -48,7 +64,7 @@ function gotoPage(filename, pagetitle)
 {
     setTitle(config.blog_name);
     setFooter();
-    getText(config.md_url+"/"+filename, function(data) {
+    getText(getMdUrl()+filename, function(data) {
         setTitle(config.blog_name + " - " + title);
         var title = document.getElementById("title");
         var txt = document.createTextNode(pagetitle);
@@ -76,5 +92,22 @@ render = function(mdString)
     var html = marked(mdString);
     var content = document.getElementById("content");
     content.innerHTML = html;
+}
+
+newPage = function()
+{
+    if (!localStorage.newPage) {
+        localStorage.newPage = getCurTimeStr();
+    }
+    window.location.href = "/editor.html?name="+localStorage.newPage+"&type=new";
+}
+
+editMd = function(e)
+{
+    var filename = e.target.name;
+    var filenamepre = filename.match(/^(\d+\.){6}\d/);
+    filenamepre = filenamepre[0];
+    
+    window.location.href = "/editor.html?name="+filenamepre+"&type=modify&filename="+filename;
 }
 

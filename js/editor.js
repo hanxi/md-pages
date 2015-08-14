@@ -12,10 +12,45 @@ onload = function()
     editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         mode: 'gfm',
     });
-    editor.setValue(defaultmd);
+
+    var name = loadPageVar("name");
+    var type = loadPageVar("type");
+    if (type=="modify") {
+        var filename = loadPageVar("filename");
+        if (filename) {
+            getText(getMdUrl()+filename, function(data) {
+                editor.setValue(data);
+                var newUrl = window.location.href.replace(/&filename=.*$/,"");
+                updateUrl(newUrl);
+                update();
+            });
+        } else {
+            loadCache(name)
+            update();
+        }
+    } else {
+        loadCache(name);
+        update();
+    }
     editor.on('change', update);
     editor.on("scroll", scrollPreview);
-    render(defaultmd);
+}
+
+function updateUrl(newUrl)
+{
+    var stateObject = {};
+    var title = "";
+    history.pushState(stateObject,title,newUrl);
+}
+
+function loadCache(name)
+{
+    // load cache
+    if (localStorage[name]) {
+        editor.setValue(localStorage[name]);
+    } else {
+        editor.setValue(defaultmd);
+    }
 }
 
 scrollPreview = function()
@@ -32,6 +67,8 @@ update = function()
 {
     var mdString = editor.getValue();
     render(mdString);
+    var name = loadPageVar("name");
+    localStorage[name] = mdString;
 }
 
 render = function(mdString)
@@ -52,7 +89,9 @@ updateTitle = function(mdString)
         title = matchTitle[2];
     } else {
         matchTitle = mdString.match(lheading);
-        title = matchTitle[1];
+        if (matchTitle) {
+            title = matchTitle[1];
+        }
     }
 
     if (title) {
@@ -71,7 +110,8 @@ publish = function()
     mdString = mdString.replace(heading,"$1 "+title+"\n\n");
     editor.setValue(mdString);
 
-    var fileName = loadPageVar("name");
-    var url = "http://localhost:8000/upload?name=md/"+title+"."+fileName;
+    var name = loadPageVar("name");
+    var url = config.file_server+"/upload?name=md/"+name+"."+title+".md";
     postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
+    localStorage.newPage = null;
 }

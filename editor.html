@@ -16,6 +16,7 @@
     <script src="js/marked.js"></script>
     <script src="js/highlight.pack.js"></script>
 
+    <script src="js/config.js"></script>
     <script src="js/util.js"></script>
     <script src="js/editor.js"></script>
     <script src="js/defaultmd.js"></script>
@@ -23,9 +24,14 @@
 
 <body>
     <div id="top-bar">
-        <span>文章标题:</span>
-        <input id="file-name"></input>
-        <button id="publish" onclick="publish();">发布</button>
+        <div class="left">
+            <a href="/">主页</a>
+        </div>
+        <div class="right">
+            <span>标题:</span>
+            <input id="file-name"></input>
+            <button id="publish" onclick="publish();">发布</button>
+        </div>
     </div>
     <div id="editor"><form><textarea id="code"></textarea></form></div>
     <div id="preview"></div>

@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/octicons.css">
     <link rel="stylesheet" href="css/github-gist.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>blog</title>
@@ -21,6 +22,7 @@
         <div id="home">
             <div id="container">
                 <div id="blog_title"></div>
+                <button id="new_page" onclick="newPage();"><span class="octicon octicon-plus"></span>新建</button>
                 <div id="index">
                     <image id="wait" src="img/wait.gif" class="aligncenter"></image>
                     <ul id="post_list"></ul>
@@ -33,7 +35,7 @@
             <div id="container">
                 <div id="header">
                     <div id="post-nav">
-                        <a href="/">Home</a>
+                        <a href="/">主页</a>
                     </div>
                 </div>
                 <div class="clearfix"></div>

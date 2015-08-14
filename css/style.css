@@ -11,6 +11,16 @@ body {
     margin: 0;
 }
 
+.left {
+    float: left;
+    padding-left: 20px;
+}
+
+.right {
+    float: right;
+    padding-right: 20px;
+}
+
 .emoji {
   width: 1em;
   height: 1em;
@@ -86,7 +96,7 @@ body {
   z-index: 50;
 }
 
-#top-bar button{
+button{
   display: inline-block;
   padding: 6px 12px;
   font-size: 13px;
@@ -262,10 +272,6 @@ li.pagelist {
     list-style-type: none;
     white-space: nowrap;
     overflow: hidden;
-}
-
-li.pagelist:before {
-    content: "\0BB \020";
 }
 
 #index ul { margin: 0; }
