@@ -39,6 +39,7 @@ $ python file-server.py 8001
 - [x] 编辑器缓存未发布的文件
 - [x] 主页和文章页面
 - [ ] 主页文档分页加载
+- [ ] 预览滚动条带动编辑器滚动条
 
 [marked]:https://github.com/chjj/marked
 [codemirror]:https://codemirror.net/
