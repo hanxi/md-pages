@@ -2,16 +2,34 @@
 
 为小团队内部分享技术文档而生的一个 markdown 博客
 
-## 感谢
+## 运行
 
-* [marked] => 解析 [GFM] 语法
-* [codemirror] => [GFM] 编辑器
+* 启动 http 服务器
+```bash
+$ cd md-pages
+$ python SimpleHTTPServer 8000
+```
+
+* 启动 http file server
+```bash
+$ cd http-file-server
+$ python file-server.py 8001
+```
+
+* 使用浏览器访问 <http://localhost:8000>
 
 ## 文件服务器
 
 默认使用 [http-file-server]
 
 文件服务器的需求简单：读取文件夹和文件，上传文件。不喜欢 [http-file-server] 可以自己实现。
+
+使用云存储也许也是可行的。
+
+## 感谢
+
+* [marked] => 解析 [GFM] 语法
+* [codemirror] => [GFM] 编辑器
 
 ## TODO
 
