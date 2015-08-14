@@ -91,7 +91,7 @@ updateTitle = function()
     var name = loadPageVar("name");
     var fileNameView = document.getElementById("file-name");
     var pagetitle = fileNameView.value;
-    localStorage[name+".title"] = pagetitle; 
+    localStorage[name+".title"] = pagetitle;
 }
 
 render = function(mdString)
@@ -105,9 +105,13 @@ publish = function()
 {
     var mdString = editor.getValue();
     var name = loadPageVar("name");
-    var pagetitle = localStorage[name+".title"]; 
+    var pagetitle = localStorage[name+".title"];
 
-    var url = config.file_server+"/upload?name=md/"+name+"."+pagetitle+".md";
-    postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
-    localStorage.newPage = undefined;
+    if (pagetitle && pagetitle.trim().length>0) {
+        var url = config.file_server+"/upload?name=md/"+name+"."+pagetitle+".md";
+        postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
+        localStorage.newPage = undefined;
+    } else {
+        alert("请输入标题");
+    }
 }
