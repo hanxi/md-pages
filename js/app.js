@@ -25,7 +25,7 @@ function gotoHome()
                 var mtime = data[i].mtime;
                 var filenamepre = filename.match(/^(\d+\.){6}\d/);
                 if (filenamepre) {
-                    if (!tmpdict[filenamepre] || tmpdict[filenamepre].mtime>mtime) {
+                    if (!tmpdict.hasOwnProperty(filenamepre) || tmpdict[filenamepre].mtime<mtime) {
                         tmpdict[filenamepre] = {"mtime":mtime,"filename":filename};
                     }
                 }
