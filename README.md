@@ -13,6 +13,7 @@ $ python SimpleHTTPServer 8000
 * 启动 http file server
 ```bash
 $ cd http-file-server
+$ mkdir -p files/md
 $ python file-server.py 8001
 ```
 
