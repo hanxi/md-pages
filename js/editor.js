@@ -108,9 +108,16 @@ publish = function()
     var pagetitle = localStorage[name+".title"];
 
     if (pagetitle && pagetitle.trim().length>0) {
-        var url = config.file_server+"/upload?name=md/"+name+"."+pagetitle+".md";
-        postBinary(mdString, url, function(ret){alert("发布结果:\n"+ret)});
         localStorage.newPage = undefined;
+        var filename = name+"."+pagetitle+".md";
+        var url = config.file_server+"/upload?name=md/"+filename;
+        postBinary(mdString, url, function(ret) {
+            alert("发布结果:\n"+ret);
+            ret = JSON.parse(ret);
+            if (ret.result==0) {
+                window.location.href = encodeURI(encodeURI("/?p="+filename));
+            }
+        });
     } else {
         alert("请输入标题");
     }

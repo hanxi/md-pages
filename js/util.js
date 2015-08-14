@@ -134,4 +134,3 @@ function getMdUrl()
 {
     return config.file_server+"/md/";
 }
-
