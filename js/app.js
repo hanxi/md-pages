@@ -47,7 +47,7 @@ function gotoHome()
                     var href = document.createElement("a");
                     var pagetitle = filename.replace(/^(\d+\.){7}/,"");
                     pagetitle = pagetitle.replace(/\.md$/,"");
-                    href.href = "?p="+filename+"&t="+(new Date().getTime());
+                    href.href = encodeURI(encodeURI("?p="+filename+"&t="+(new Date().getTime())));
                     var txt = document.createTextNode(pagetitle);
                     href.appendChild(txt);
 
@@ -108,6 +108,6 @@ editMd = function(e)
     var filenamepre = filename.match(/^(\d+\.){6}\d/);
     filenamepre = filenamepre[0];
     
-    window.location.href = "/editor.html?name="+filenamepre+"&type=modify&filename="+filename;
+    window.location.href = encodeURI(encodeURI("/editor.html?name="+filenamepre+"&type=modify&filename="+filename));
 }
 

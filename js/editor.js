@@ -26,7 +26,7 @@ onload = function()
                 var pagetitle = filename.replace(/^(\d+\.){7}/,"");
                 pagetitle = pagetitle.replace(/\.md$/,"");
                 var fileNameView = document.getElementById("file-name");
-                fileNameView.value = pagetitle;
+                fileNameView.value = decodeURI(pagetitle);
 
                 update();
             });
