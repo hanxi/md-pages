@@ -1,6 +1,6 @@
 #Dockerfile
 
-FROM centos
+FROM index.alauda.cn/tutum/centos:centos6
 MAINTAINER hanxi <hanxi.info@gmail.com>
 
 ENV LANG en_US.UTF-8
