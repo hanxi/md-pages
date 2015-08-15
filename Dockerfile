@@ -8,6 +8,7 @@ ENV LC_ALL en_US.UTF-8
 
 EXPOSE 8000
 EXPOSE 80
+EXPOSE 22
 
 RUN yum install -y git unzip
 RUN curl -LOR http://git.oschina.net/hanxi/md-pages/raw/master/md-pages.zip
