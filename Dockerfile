@@ -11,7 +11,7 @@ EXPOSE 80
 
 RUN yum install -y git unzip
 RUN curl -LOR http://git.oschina.net/hanxi/md-pages/raw/master/md-pages.zip
-RUN unzip md-pages.zip && mv md-pages /
+RUN unzip md-pages.zip && cp -rf md-pages /
 
 WORKDIR /md-pages
 RUN mkdir -p /md-pages/http-file-server/files/md
