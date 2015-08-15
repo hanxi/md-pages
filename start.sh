@@ -1,5 +1,5 @@
 #!/bin/bash
 
 cd /md-pages
-python -m SimpleHTTPServer 8000 &
-python /md-pages/http-file-server/file-server.py /md-pages/http-file-server/files 80 &
+/usr/bin/python -m SimpleHTTPServer 8000 &
+/usr/bin/python http-file-server/file-server.py http-file-server/files 80 &
