@@ -1,6 +1,6 @@
 #Dockerfile
 
-FROM centos6-base
+FROM centos
 MAINTAINER hanxi <hanxi.info@gmail.com>
 
 ENV LANG en_US.UTF-8
