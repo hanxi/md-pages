@@ -10,6 +10,14 @@ $ cd md-pages
 $ python SimpleHTTPServer 8000
 ```
 
+文件服务器的配置在 `config.js`
+```js
+config = {
+    blog_name: "博客 ● 文档",
+    file_server: "http://"+window.location.hostname+":8001",
+};
+```
+
 * 启动 http file server
 ```bash
 $ cd http-file-server
