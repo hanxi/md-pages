@@ -9,12 +9,12 @@ ENV LC_ALL en_US.UTF-8
 EXPOSE 8000
 EXPOSE 80
 
-RUN yum install -y git
-RUN git clone https://git.oschina.net/hanxi/md-pages.git /md-pages
+RUN yum install -y git unzip
+RUN curl -LOR http://git.oschina.net/hanxi/md-pages/raw/master/md-pages.zip
+RUN unzip md-pages.zip && mv md-pages /
 
 WORKDIR /md-pages
-RUN git submodule update
-RUN mkdir -p http-file-server/files/md
+RUN mkdir -p /md-pages/http-file-server/files/md
 
 CMD ["/bin/bash", "/md-pages/start.sh"]
 
