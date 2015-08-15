@@ -1,5 +1,3 @@
-var editor
-
 onload = function()
 {
     hljs.initHighlightingOnLoad();
@@ -9,7 +7,7 @@ onload = function()
         }
     });
 
-    editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), {
         mode: 'gfm',
     });
 
@@ -28,21 +26,31 @@ onload = function()
                 var fileNameView = document.getElementById("file-name");
                 fileNameView.value = decodeURI(pagetitle);
 
-                update();
+                update(editor);
             });
         } else {
-            loadCache(name)
-            update();
+            loadCache(editor, name)
+            update(editor);
         }
     } else {
-        loadCache(name);
-        update();
+        loadCache(editor, name);
+        update(editor);
     }
     editor.on('change', update);
     editor.on("scroll", scrollPreview);
 
     fileNameView = document.getElementById("file-name");
     fileNameView.onblur = updateTitle;
+
+    editor.on("dragenter", function(editor, e){
+        e.stopPropagation();
+        e.preventDefault();
+    }, false);
+    editor.on('dragover', function(editor, e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }, false);
+    editor.on("drop", handleDrop);
 }
 
 function updateUrl(newUrl)
@@ -52,7 +60,7 @@ function updateUrl(newUrl)
     history.pushState(stateObject,title,newUrl);
 }
 
-function loadCache(name)
+function loadCache(editor, name)
 {
     // load cache
     if (localStorage[name]) {
@@ -67,7 +75,7 @@ function loadCache(name)
     }
 }
 
-scrollPreview = function()
+scrollPreview = function(editor)
 {
     var preview = document.getElementById("preview");
     var sinfo = editor.getScrollInfo();
@@ -77,7 +85,7 @@ scrollPreview = function()
     preview.scrollTop = (preview.scrollHeight-preview.clientHeight)*per;
 }
 
-update = function()
+update = function(editor)
 {
     var mdString = editor.getValue();
     render(mdString);
@@ -120,5 +128,30 @@ publish = function()
         });
     } else {
         alert("请输入标题");
+    }
+}
+
+handleDrop = function(editor, e)
+{
+    e.stopPropagation();
+    e.preventDefault();
+    var fileList  = e.dataTransfer.files;
+    for (var i=0; i<fileList.length; i++) {
+        var file = fileList[i];
+        var reader = new FileReader();
+        reader.name = file.name;
+        reader.onload = function(e) {
+            var imgname = this.name;
+            var url = config.file_server+"/upload?name=img/"+imgname;
+            postBinary(this.result, url, function(ret) {
+                ret = JSON.parse(ret);
+                if (ret.result==0) {
+                    var cur = editor.getCursor();
+                    var imgurl = " ![]("+config.file_server+"/"+ret.filename+") ";
+                    editor.replaceRange(imgurl,cur,cur);
+                }
+            });
+    　　}
+    　　reader.readAsArrayBuffer(file);
     }
 }
