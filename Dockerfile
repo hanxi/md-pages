@@ -17,6 +17,6 @@ RUN unzip md-pages.zip
 WORKDIR /md-pages
 RUN mkdir -p /md-pages/http-file-server/files/md
 
-CMD ["/bin/bash", "/md-pages/start.sh"]
+#CMD ["/bin/bash", "/md-pages/start.sh"]
 
 #End
