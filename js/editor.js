@@ -111,8 +111,8 @@ render = function(mdString)
 
 publish = function()
 {
-    var mdString = editor.getValue();
     var name = loadPageVar("name");
+    var mdString = localStorage[name];
     var pagetitle = localStorage[name+".title"];
 
     if (pagetitle && pagetitle.trim().length>0) {
