@@ -141,7 +141,7 @@ handleDrop = function(editor, e)
         var reader = new FileReader();
         reader.name = file.name;
         reader.onload = function(e) {
-            var imgname = this.name;
+            var imgname = getCurTimeStr()+"."+this.name;
             var url = config.file_server+"/upload?name=img/"+imgname;
             postBinary(this.result, url, function(ret) {
                 ret = JSON.parse(ret);
