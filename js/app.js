@@ -2,7 +2,10 @@ onload = function()
 {
     hljs.initHighlightingOnLoad();
     marked.setOptions({
-        highlight: function (code) {
+        highlight: function (code, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+                return hljs.highlight(lang, code).value;
+            }
             return hljs.highlightAuto(code).value;
         }
     });
