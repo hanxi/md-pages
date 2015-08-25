@@ -199,6 +199,13 @@ table {
 td {
     vertical-align: top;
     padding: 3px 6px;
+    border: 1px solid #ddd;
+}
+
+th {
+    vertical-align: top;
+    padding: 3px 6px;
+    border: 1px solid #ddd;
 }
 
 /* Optimization for pre and code tag */
