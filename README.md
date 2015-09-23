@@ -22,7 +22,7 @@ config = {
 ```bash
 $ cd http-file-server
 $ mkdir -p files/md
-$ python file-server.py 8001
+$ python file-server.py files 8001
 ```
 
 * 使用浏览器访问 <http://localhost:8000>
